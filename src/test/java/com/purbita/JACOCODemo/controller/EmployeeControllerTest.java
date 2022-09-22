@@ -14,6 +14,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,6 +30,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.purbita.JACOCODemo.entity.Employee;
+import com.purbita.JACOCODemo.service.EmployeeService;
 
 
 @SpringBootTest
@@ -34,6 +38,12 @@ import com.purbita.JACOCODemo.entity.Employee;
 public class EmployeeControllerTest {
 
 	private MockMvc mockMvc;
+	
+	@InjectMocks
+	EmployeeController employeeController;
+	
+	@Mock
+	EmployeeService employeeService;
 	
 	@Autowired
 	private WebApplicationContext wc;
@@ -51,6 +61,7 @@ public class EmployeeControllerTest {
 	
 	@Test
 	public void saveEmployee() throws JsonProcessingException, Exception{
+		
 //		MvcResult result = mockMvc.perform(put("/api/employee")
 //				.contentType(APPLICATION_JSON_VALUE)
 //				.content(MAPPER.writeValueAsString(employee)))
@@ -58,6 +69,9 @@ public class EmployeeControllerTest {
 //				.andReturn();
 //		
 //		Employee response = MAPPER.readValue(result.getResponse().getContentAsString(), Employee.class);
+		Employee employee = new Employee(1,"ravi","Gain Java Knowledge");
+		Mockito.when(employeeService.saveEmployee(employee)).thenReturn(employee);
+		employee = employeeController.saveEmployee(employee);
 	   assertEquals(employee.getId(), 1);
 	}
 	
