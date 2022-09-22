@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.purbita.JACOCODemo.entity.Employee;
+import com.purbita.JACOCODemo.lombok.Generated;
 import com.purbita.JACOCODemo.service.EmployeeService;
 
 
@@ -38,6 +39,7 @@ public class EmployeeController {
 		return employeeService.getEmployees();
 	}
 
+	@Generated
 	@DeleteMapping(value = "/{employee-id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public Employee deleteEmployee(
